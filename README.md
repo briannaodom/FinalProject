@@ -2,7 +2,7 @@
 
 #### Example Video of Proper AbWheel Usage
 
-[AbWheel](https://www.youtube.com/watch?v=rqiTPdK1c_I)
+![AbWheel](https://www.youtube.com/watch?v=rqiTPdK1c_I)
 
 #### Goal:
 
