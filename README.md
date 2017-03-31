@@ -2,7 +2,7 @@
 
 #### Example Video of Proper Ab Wheel Usage
 
-[![]()](https://www.youtube.com/watch?v=rqiTPdK1c_I)
+[![](https://github.com/briannaodom/FinalProject/blob/master/images/abwheel.png)](https://www.youtube.com/watch?v=rqiTPdK1c_I)
 
 #### Goal:
 
