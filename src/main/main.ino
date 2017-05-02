@@ -1,5 +1,11 @@
 const int led = 13; 
-const int button = 2;
+const int button = 12;
+boolean prevButton = LOW;    //previous button state
+boolean currentButton = LOW; //current button state
+boolean OFF = false; 
+boolean ledState = OFF;      //state of LED
+
+boolean debounce(boolean prev);
 
 void setup() {
   pinMode(led, OUTPUT); //led as output, button input by default
@@ -14,10 +20,20 @@ void loop() {
   //  analogWrite(led, i);
   //  delay(10);
   //}
-    if (digitalRead(button)== HIGH){ //test push button
-      digitalWrite(led, HIGH);
+  currentButton = debounce(prevButton);
+    if (prevButton == LOW && currentButton == HIGH){
+      ledState = !ledState;
     }
-    else{
-      digitalWrite(led,LOW);
+    prevButton = currentButton;
+    digitalWrite(led, ledState);
+}
+
+
+boolean debounce(boolean previous){
+  boolean currentButtonState = digitalRead(button);  //read button state
+  if (previous != currentButtonState){
+    delay(10);                                    //delay 10ms
+    currentButtonState = digitalRead(button);
+  return currentButtonState;
   }
 }
