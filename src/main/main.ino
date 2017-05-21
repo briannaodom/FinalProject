@@ -9,12 +9,14 @@ boolean ledState = OFF;         //state of LED
 int ADCval = 1;                 //value for analog reading of POT
 const int POT = A0;             //analog pin value for Potientiometer   
 LiquidCrystal lcd(7,6,5,4,3,2); //pins arduino in rel.to RS,EN,D4,D5,D6,& D7 on LCD        
+const int MOTOR = 8;            //motor pin connected to transistor
 
 boolean debounce(boolean prev);
+int readPot(int POT); 
 
 void setup() {
-  pinMode(led, OUTPUT); //led as output, button input by default
-  Serial.begin(9600);   //communication speed
+  pinMode(led, OUTPUT);   //led as output, button input by default
+  Serial.begin(9600);     //communication speed
   lcd.begin(16,2);
 }
 
@@ -27,7 +29,7 @@ void loop() {
   //  analogWrite(led, i);
   //  delay(10);
   //} 
-  currentButton = debounce(prevButton);             //weird delay in the button
+  currentButton = debounce(prevButton);              //weird delay in the button
   if (prevButton == LOW && currentButton == HIGH){
     ledState = !ledState;
   }
@@ -38,9 +40,8 @@ void loop() {
   lcd.setCursor(0,0);
   lcd.print(String("ADC value: ") + String(ADCval)); //shows ADC values on LCD
   delay(450);                                        //delay to read ADC values at 450ms (0-1023)
-    
-}
-
+  }
+ 
 
 boolean debounce(boolean previous){
   boolean currentButtonState = digitalRead(button);  //read button state
