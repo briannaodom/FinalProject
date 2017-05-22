@@ -19,23 +19,23 @@ More objectives will be added for Winter Quarter at the end of the Spring Quarte
 
 #### Componenents
 
-### LCD 
+##### LCD 
 
 The LCD currently displays the PWM value that is computed from the analog pin wired to the potientiometer. When the value of the potientiometer increases from 0 to 255, the motor spins quicker in the forward direction and the LCD displays that value.
 
-### Schematic of LCD
+##### Schematic of LCD
 
-### Hbridge
+###### Hbridge
 
 The hbridge DRV3385 chip is currently wired to drive the DC motor in a forward direction when a button is unpressed and in the reverse direction when a button is being pressed. 
 
 The datasheet to wire the hbridge can be found on the Pololu website [here](https://www.pololu.com/product/2135)
 
-### Schematic of Hbridge
+##### Schematic of Hbridge
 
-### Demo of Hbridge Controlling the Motor and LCD Displaying PWM
+##### Youtube Demo of Hbridge Controlling the Motor and LCD Displaying PWM
 
-[Demo](https://github.com/briannaodom/FinalProject/blob/master/images/DemoWHbridge.MOV)
+[![](https://github.com/briannaodom/FinalProject/blob/master/images/BreadboardWHbridge.JPG)](https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be)
 
 
 
