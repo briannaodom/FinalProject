@@ -17,6 +17,17 @@ Create an Ab Wheel that will have an assisted functionality. The user will roll 
 
 More objectives will be added for Winter Quarter at the end of the Spring Quarter
 
+#### Supplies
+
+1. Hbridge Driver in this case the DVR8835
+2. 2 Potientiometers- one to setup hbridge, one to control LCD lighting
+3. LCD to display desired values such as PWM, current, and rotation angle of the motor
+4. Battery Pack in this case 6V
+5. Encoder Chip
+6. Current Sensor Chip
+7. DC Motor
+8. Arduino Uno
+
 #### Componenents
 
 ##### LCD 
@@ -33,7 +44,7 @@ Useful for LCD and potientiometer setup:
 
 The hbridge DRV3385 chip is currently wired to drive the DC motor in a forward direction when a button is unpressed and in the reverse direction when a button is being pressed. 
 
-The datasheet to wire the hbridge can be found on the Pololu website [here](https://www.pololu.com/product/2135)
+The datasheet to wire the hbridge can be found on the Pololu website [here](https://www.pololu.com/product/2135).
 
 Useful for hbridge and button setup:
 
