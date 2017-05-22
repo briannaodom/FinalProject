@@ -23,7 +23,7 @@ More objectives will be added for Winter Quarter at the end of the Spring Quarte
 
 The LCD currently displays the PWM value that is computed from the analog pin wired to the potientiometer. When the value of the potientiometer increases from 0 to 255, the motor spins quicker in the forward direction and the LCD displays that value.
 
-Useful for LCD and potientiometer 
+Useful for LCD and potientiometer setup: 
 
 1. Schematic of LCD [link]()
 2. Schematic of potientiometer [link]()
