@@ -29,13 +29,13 @@ The LCD currently displays the PWM value that is computed from the analog pin wi
 
 The hbridge DRV3385 chip is currently wired to drive the DC motor in a forward direction when a button is unpressed and in the reverse direction when a button is being pressed. 
 
-The datasheet to wire the hbridge can be found on the Pololu website here[](https://www.pololu.com/product/2135)
+The datasheet to wire the hbridge can be found on the Pololu website [here](https://www.pololu.com/product/2135)
 
 ### Schematic of Hbridge
 
 ### Demo of Hbridge Controlling the Motor and LCD Displaying PWM
 
-[](https://github.com/briannaodom/FinalProject/blob/master/images/DemoWHbridge.MOV)
+[Demo](https://github.com/briannaodom/FinalProject/blob/master/images/DemoWHbridge.MOV)
 
 
 
