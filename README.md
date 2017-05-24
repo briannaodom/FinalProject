@@ -52,12 +52,18 @@ Useful for hbridge and button setup:
 2. Schematic of button [link]()
 3. Code for hbridge setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/hbridgesetup.ino)
 
-#### Current Sensor
+#### Current Sensor 
 
-Useful for current setup:
+Useful for current sensor setup:
 
 1. Schematic of current sensor [link]()
 2. Code for current sensor setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/currentsensorsetup.ino)
+
+#### Encoder 
+
+Useful for encoder setup:
+1. Schematic of encoder [link]()
+2. Code for encoder setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/encodersetup.ino)
 
 #### Youtube Demo of Hbridge Controlling the Motor and LCD Displaying PWM
 
