@@ -15,7 +15,7 @@ Create an Ab Wheel that will have an assisted functionality. The user will roll 
 3. Designing PID controller for current/torque control of the motor
 4. Designing a desktop model to simulate a person pushing on an abwheel
 
-More objectives will be added for Winter Quarter at the end of the Spring Quarter
+More objectives will be added for Summer Quarter at the end of the Spring Quarter
 
 ### Supplies
 
@@ -38,7 +38,7 @@ Useful for LCD and potientiometer setup:
 
 1. Schematic of LCD [link]()
 2. Schematic of potientiometer [link]()
-3. Code for LCD setup [link]()
+3. Code for LCD setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/lcdsetup.ino)
 
 #### Hbridge
 
@@ -50,11 +50,20 @@ Useful for hbridge and button setup:
 
 1. Schematic of hbridge [link]()
 2. Schematic of button [link]()
-3. Code for hbridge setup [link]()
+3. Code for hbridge setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/hbridgesetup.ino)
+
+#### Current Sensor
+
+Useful for current setup:
+
+1. Schematic of current sensor [link]()
+2. Code for current sensor setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/currentsensorsetup.ino)
 
 #### Youtube Demo of Hbridge Controlling the Motor and LCD Displaying PWM
 
 [![](https://github.com/briannaodom/FinalProject/blob/master/images/BreadboardWHbridge.JPG)](https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be)
+
+
 
 
 
