@@ -12,6 +12,7 @@ int PWMval;                     //initializing pwm variable for POT
 const int pwm = 11;             
 const int in2 = 9;
 const int in1 = 10;
+float voltage;
 LiquidCrystal lcd(7,6,5,4,3,2); //pins arduino in rel.to RS,EN,D4,D5,D6,& D7 on LCD        
 
 boolean debounce(boolean prev);
@@ -37,17 +38,22 @@ void loop() {
     ledState = !ledState;
   }
   prevButton = currentButton;
-  digitalWrite(led, ledState);
+  digitalWrite(led, ledState);                       
+  //delay(450);                                        //delay to read ADC values at 450ms (0-1023)
   ADCval = readPot(POT);
+  voltage = 5*ADCval/1023;
   PWMval = ADCval/4;
-  Serial.println(ADCval);                            //print ADC values in IDE
-  lcd.setCursor(0,0);
-  lcd.print(String("ADC value: ") + String(PWMval)); //shows ADC values on LCD
-  delay(450);                                        //delay to read ADC values at 450ms (0-1023)
-
   digitalWrite(in1, currentButton);
   digitalWrite(in2, !currentButton);
-  analogWrite(pwm, PWMval);
+  analogWrite(pwm,PWMval);
+  Serial.println(voltage);                             //checking voltage value from POT
+  //lcd.setCursor(0,0);
+  //lcd.print(String("PWM value: ") + String(PWMval)); //shows ADC values on LCD
+  lcd.setCursor(0,1);
+  lcd.print(String("Voltage value: ") + String(voltage)); //shows voltage on LCD
+  //digitalWrite(in1, currentButton);
+  //digitalWrite(in2, !currentButton);
+  //analogWrite(pwm, PWMval);
   }
  
 
@@ -64,4 +70,3 @@ int readPot(int POT){
   ADCval = analogRead(POT);
   return ADCval;
 }
-
