@@ -5972,6 +5972,7 @@ Source: AVX .. aphvc.pdf</description>
 <text x="83.82" y="22.86" size="1.778" layer="91">to arduino (ADC)</text>
 <text x="99.06" y="60.96" size="1.778" layer="91">to hbridge </text>
 <text x="99.06" y="53.34" size="1.778" layer="91">to motor</text>
+<text x="-20.32" y="35.56" size="1.778" layer="91">to motor</text>
 </plain>
 <instances>
 <instance part="GND1" gate="1" x="96.52" y="40.64"/>
