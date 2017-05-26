@@ -74,13 +74,13 @@ Useful for encoder setup:
 Currently taking measurements to build a model of a person in push up position with knees on the ground holding the ab wheel that will be guided by a motor. The measurements have come from my cohort. I'd like to get at least 10-15 subjects before I take an average of each measurement. 
 
 shoulder to arms    shoulder to hip     side of hip to side of hip      side of arm to side of arm
-24"                 18"
-25"                 18"
-25.5"               19"
-27"                 20" 
-27"                 21"
-26"                 20"
-24"                 18"
+1. 24"              18"
+2. 25"              18"
+3. 25.5"            19"
+3. 27"              20" 
+4. 27"              21"
+5. 26"              20"
+6. 24"              18"
 
 
 
