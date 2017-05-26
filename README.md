@@ -48,7 +48,7 @@ The datasheet to wire the hbridge can be found on the Pololu website [here](http
 
 Useful for hbridge and button setup:
 
-1. Schematic of hbridge [link]()
+1. Schematic of hbridge [link](https://github.com/briannaodom/FinalProject/blob/master/images/hbridge.png)
 2. Schematic of button [link]()
 3. Code for hbridge setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/hbridgesetup.ino)
 
