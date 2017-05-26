@@ -62,7 +62,7 @@ Useful for current sensor setup:
 #### Encoder 
 
 Useful for encoder setup:
-1. Schematic of encoder [link]()
+1. Schematic of encoder [link](https://github.com/briannaodom/FinalProject/blob/master/images/encoder.png)
 2. Code for encoder setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/encodersetup.ino)
 
 #### Youtube Demo of Hbridge Controlling the Motor and LCD Displaying PWM
