@@ -56,7 +56,7 @@ Useful for hbridge and button setup:
 
 Useful for current sensor setup:
 
-1. Schematic of current sensor [link]()
+1. Schematic of current sensor [link](https://github.com/briannaodom/FinalProject/blob/master/images/currentsensor.png)
 2. Code for current sensor setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/currentsensorsetup.ino)
 
 #### Encoder 
