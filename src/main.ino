@@ -13,15 +13,25 @@ const int pwm = 11;
 const int in2 = 9;
 const int in1 = 10;
 float voltage;
+const int encoderPinA = 1;
+const int encoderPinB = 8;
+int encoderAState;
+int encoderAPrevState;
+int angle = 0;
+int counter = 0;
+
+
 LiquidCrystal lcd(7,6,5,4,3,2); //pins arduino in rel.to RS,EN,D4,D5,D6,& D7 on LCD        
 
 boolean debounce(boolean prev);
 int readPot(int POT); 
+void getEncoder();
 
 void setup() {
-  pinMode(led, OUTPUT);   //led as output, button input by default
+  pinMode(led, OUTPUT);   //led as output, button and encoder A & B inputs by default
   Serial.begin(9600);     //communication speed
-  lcd.begin(16,2);
+  lcd.begin(16,2);         
+    
 }
 
 void loop() {
@@ -47,15 +57,16 @@ void loop() {
   digitalWrite(in2, !currentButton);
   analogWrite(pwm,PWMval);
   Serial.println(voltage);                             //checking voltage value from POT
+  getEncoder();
   //lcd.setCursor(0,0);
   //lcd.print(String("PWM value: ") + String(PWMval)); //shows ADC values on LCD
+  lcd.clear();
   lcd.setCursor(0,1);
-  lcd.print(String("Voltage value: ") + String(voltage)); //shows voltage on LCD
+  lcd.print(String("Volt: ") + String(voltage) + String(" Deg: ") + String(int(angle*(-1.8)))); //shows voltage on LCD
   //digitalWrite(in1, currentButton);
   //digitalWrite(in2, !currentButton);
   //analogWrite(pwm, PWMval);
   }
- 
 
 boolean debounce(boolean previous){
   boolean currentButtonState = digitalRead(button);  //read button state
@@ -69,4 +80,22 @@ boolean debounce(boolean previous){
 int readPot(int POT){
   ADCval = analogRead(POT);
   return ADCval;
+}
+
+void getEncoder(){
+  encoderAState = digitalRead(encoderPinA);
+  if (encoderAState != encoderAPrevState){
+    if (digitalRead(encoderPinB) != encoderAState){
+      counter++;
+      angle ++;
+    }
+    else{
+      counter--;
+      angle--;
+    }
+    if (counter >=30){
+      counter = 0;
+  }
+  encoderAPrevState = encoderAState;
+ }
 }
