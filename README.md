@@ -36,9 +36,8 @@ The LCD currently displays the PWM value that is computed from the analog pin wi
 
 Useful for LCD and potientiometer setup: 
 
-1. Schematic of LCD [link]()
-2. Schematic of potientiometer [link]()
-3. Code for LCD setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/lcdsetup.ino)
+1. Schematic of LCD and potientiometer [link](https://github.com/briannaodom/FinalProject/blob/master/images/LCD_POT.png)
+2. Code for LCD setup [link](https://github.com/briannaodom/FinalProject/blob/master/src/lcdsetup.ino)
 
 #### Hbridge
 
@@ -69,6 +68,9 @@ Useful for encoder setup:
 
 [![](https://github.com/briannaodom/FinalProject/blob/master/images/BreadboardWHbridge.JPG)](https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be)
 
+<iframe width="420" height="315"
+src="https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be">
+</iframe>
 ### Measurements for Desktop Model
 
 Currently taking measurements to build a model of a person in push up position with knees on the ground holding the ab wheel that will be guided by a motor. The measurements have come from my cohort. I'd like to get at least 10-15 subjects before I take an average of each measurement. 
