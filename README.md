@@ -69,6 +69,7 @@ Useful for encoder setup:
 [![](https://github.com/briannaodom/FinalProject/blob/master/images/BreadboardWHbridge.JPG)](https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be)
 
 <iframe src="https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be" width="420" height="315" frameborder="0" allowfullscreen> </iframe>
+
 ### Measurements for Desktop Model
 
 Currently taking measurements to build a model of a person in push up position with knees on the ground holding the ab wheel that will be guided by a motor. The measurements have come from my cohort. I'd like to get at least 10-15 subjects before I take an average of each measurement. 
