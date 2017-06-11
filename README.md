@@ -68,11 +68,12 @@ Useful for encoder setup:
 
 [![](https://github.com/briannaodom/FinalProject/blob/master/images/BreadboardWHbridge.JPG)](https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be)
 
-<iframe src="https://www.youtube.com/watch?v=onr-n5QG-nY&feature=youtu.be" width="420" height="315" frameborder="0" allowfullscreen> </iframe>
-
 ### Measurements for Desktop Model
 
 Currently taking measurements to build a model of a person in push up position with knees on the ground holding the ab wheel that will be guided by a motor. The measurements have come from my cohort. I'd like to get at least 10-15 subjects before I take an average of each measurement. 
+
+This will have to be redone as the second measurement should be from shoulder to knee. 
+For the sake of the desktop model, the third and fourth columns respectfully will have a ration of 1:4, as I did not get these measurements from people in my cohort.
 
 |shoulder to arms  | shoulder to hip   | side of hip to side of hip  | side of arm to side of arm
 |------------------|-------------------|-----------------------------|----------------------------|
@@ -84,6 +85,30 @@ Currently taking measurements to build a model of a person in push up position w
 | 26"              | 20"               |                             |                            |
 | 24"              | 18"               |                             |                            |
 
+### Measurements for onShape Modeling
 
+pinwheel width is .225  in
+set screw hub width is .275 in 
+widths checking length of bolt (length > .500 in)
+needed for hub to wheel is 6-32 bolt x 1 1/2" (#6 bolt, 32 thread, 1.5 in long)
+
+for shaft
+pulley radius of center hole is 1.0 in
+set screw hub center hole diamaeter .50 in
+pinwheel center hole diameter .50 in 
+
+pinwheel small holes .140000 in diameter (bolt head needs to be bigger, bolt shaft/helix height)
+center distance of small holes is .110 (bold shaft length)
+set screw hub hole is .275 long (helix of bolt)
+
+These measurements taken above are from the models created from [Servocity](https://www.servocity.com/) that can be found [here](https://github.com/briannaodom/FinalProject/tree/master/onShapeDocs).
+
+An example of modeled [bolt](https://github.com/briannaodom/FinalProject/blob/master/images/bolt.png) created in onShape for this desktop model can be seen. 
+
+### Future Goals
+
+The goal is to finish the onShape model of the desktop version of the abwheel and test the current sensing code, before the start of the summer quarter.
+
+Next quarters goal is to continue the software to come to a comfortable/safe point that the code will prevent a user from getting hurt, before testing on a human size model of the abwheel. 
 
 
