@@ -86,24 +86,21 @@ For the sake of the desktop model, the third and fourth columns respectfully wil
 | 24"              | 18"               |                             |                            |
 
 ### Measurements for onShape Modeling
+For shaft
+1. Pulley radius of center hole is 1.0 in
+2. Set screw hub center hole diamaeter .50 in
+3. Pinwheel center hole diameter .50 in 
 
-pinwheel width is .225  in
-set screw hub width is .275 in 
-widths checking length of bolt (length > .500 in)
-needed for hub to wheel is 6-32 bolt x 1 1/2" (#6 bolt, 32 thread, 1.5 in long)
-
-for shaft
-pulley radius of center hole is 1.0 in
-set screw hub center hole diamaeter .50 in
-pinwheel center hole diameter .50 in 
-
-pinwheel small holes .140000 in diameter (bolt head needs to be bigger, bolt shaft/helix height)
-center distance of small holes is .110 (bold shaft length)
-set screw hub hole is .275 long (helix of bolt)
+For bolt
+1. pinwheel small holes .140000 in diameter (bolt head needs to be bigger, bolt shaft/helix height)
+2. center distance of small holes is .110 (bold shaft length)
+3. set screw hub hole is .275 long (helix of bolt)
 
 These measurements taken above are from the models created from [Servocity](https://www.servocity.com/) that can be found [here](https://github.com/briannaodom/FinalProject/tree/master/onShapeDocs).
 
-An example of modeled [bolt](https://github.com/briannaodom/FinalProject/blob/master/images/bolt.png) created in onShape for this desktop model can be seen. 
+An example of modeled [bolt](https://github.com/briannaodom/FinalProject/blob/master/images/bolt.png) created in onShape for this desktop model can be seen.
+
+More measurements of other parts including the motor will be added soon. 
 
 ### Future Goals
 
