@@ -8,7 +8,7 @@ boolean OFF = false;
 boolean ledState = OFF;         //state of LED
 int ADCval = 1;                 //value for analog reading of POT
 const int POT = A0;             //analog pin value for Potientiometer   
-LiquidCrystal lcd(8,7,6,5,4,22); //pins arduino in rel.to RS,EN,D4,D5,D6,& D7 on LCD        
+LiquidCrystal lcd(8,7,6,5,20,21); //pins arduino in rel.to RS,EN,D4,D5,D6,& D7 on LCD        
 
 boolean debounce(boolean prev);
 
