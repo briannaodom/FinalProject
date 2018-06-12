@@ -28,7 +28,7 @@ int currentPin = A1;
 int desiredCurrent;
 float voltVal;
 int Prop_gain = 1;                      //Figure Out!!
-int currentGain = 65;                   //gain that affects range of current
+int currentGain = 100;                   //gain that affects range of current
 int motorState = HIGH;                   //current state of output pin;
 LiquidCrystal lcd(8,7,6,5,20,21);
 
@@ -71,17 +71,17 @@ void encoder(){
 
 int calculateCurrent(int voltVal){
   ADCval2 = analogRead(currentPin);
-  voltage = 5.0*(ADCval2/1023.0);                  //from data sheet
-  current = ((voltage-2.5)/currentGain)/0,015;     //2.5 Vref val
-  //lcd.clear();
+  voltage = 5000*(ADCval2/1024.0);                      //https://circuits4you.com/2016/05/13/arduino-asc712-current/
+  current = (voltage-512)/(currentGain*0.015);          //2.5 ACSoffset, 512 same as 2.5V, 1.5 = currentGain * 0.015 (value of resistor)
+  lcd.clear();
   //lcd.print(String("ADC:") + String(ADCval2));
-  //lcd.setCursor(0,1);
-  //lcd.print(String("voltage:"));
-  //lcd.setCursor(9,1);
-  //lcd.print(voltage);
-  //lcd.setCursor(9,0);
-  //lcd.print("curr:");
-  //lcd.print(current);
+  lcd.setCursor(0,1);
+  lcd.print(String("voltage:"));
+  lcd.setCursor(9,1);
+  lcd.print(voltage);
+  lcd.setCursor(0,0);
+  lcd.print("curr:");
+  lcd.print(current);
  
   return current;
 }
@@ -94,7 +94,7 @@ void currentController(float current){
    e_int = e_int + error;
    new_current = Prop_gain*error;              //figure out prop gain
    prev_error = error;
-   voltage2 = new_current/1.85;               //1 for 20A Module, .66 for 30A Module
+   voltage2 = new_current/1.85;               //185 mV/A, 1 for 20A Module, .66 for 30A Module
    new_PWM = prev_PWM + voltage2*255;      
    prev_PWM = new_PWM;
 }
@@ -122,11 +122,11 @@ void loop() {
     current = calculateCurrent(voltVal);
     //lcd.setCursor(7,0);
     //lcd.print(String("curr:") + String(current));
-    analogWrite(pwm, 0);
+    analogWrite(pwm,0);
     rotateCW();
     STOP();
     rotateCCW();
-    lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print(String("encoder:") + String(counter));  //encoder counts correctly until motor spins to fast. need limit?
+    //lcd.clear();
+    //lcd.setCursor(0,0);
+    //lcd.print(String("encoder:") + String(counter));  //encoder counts correctly until motor spins to fast. need limit?
 }
