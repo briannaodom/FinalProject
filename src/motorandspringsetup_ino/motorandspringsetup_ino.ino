@@ -16,25 +16,20 @@ float prev_error = 0;
 float new_current;
 float motorVoltage;
 float d_error = 0;
+float voltage2;
 int new_PWM = 0;
-int prev_PWM =0;
+int prev_PWM = 0;
 int k;
-int counter = 0;
+long counter = 0;
 int angle = 0;
 int aPinState;
 int bPinState;
 int currentPin = A1; 
 int desiredCurrent;
 float voltVal;
-int Prop_gain = 1;  //Figure Out
-int currentGain = 57; //FIGURE OUT CURRENT GAIN!!!
-//int prevButton = LOW;
-//int currentButton = LOW;
-//boolean OFF = false;
-//boolean motorState = OFF;
-int motorState = HIGH;                   //current state of output pin
-unsigned long prevDebounceTime;            //last time output pin toggled in ms
-unsigned long debounceDelay = 50;          //debounce time which increases if output flickers
+int Prop_gain = 1;                      //Figure Out!!
+int currentGain = 65;                   //gain that affects range of current
+int motorState = HIGH;                   //current state of output pin;
 LiquidCrystal lcd(8,7,6,5,20,21);
 
 
@@ -57,22 +52,27 @@ void rotateCCW(){
   delay(2000);
 }
 
-  
+void STOP(){
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, HIGH);
+  delay(2000);
+}
+
 void encoder(){
   aPinState = digitalRead(encoderPinA);
   bPinState = digitalRead(encoderPinB);  
-  if (bPinState != aPinState) {          //rotating clockwise if diff
-       counter ++;
+  if (bPinState != aPinState) {          //rotating clockwise if diff        counter = -counter;
+        counter ++;
     }
   else {
-      counter --;                       //rotating counterclockwise
+        counter --;                     //rotating counterclockwise
     }
 }
 
 int calculateCurrent(int voltVal){
   ADCval2 = analogRead(currentPin);
-  voltage = 5.0*(ADCval2/1023.0);        //from data sheet
-  current = ((voltage-2.5)/currentGain)/0,015;
+  voltage = 5.0*(ADCval2/1023.0);                  //from data sheet
+  current = ((voltage-2.5)/currentGain)/0,015;     //2.5 Vref val
   //lcd.clear();
   //lcd.print(String("ADC:") + String(ADCval2));
   //lcd.setCursor(0,1);
@@ -92,8 +92,11 @@ void currentController(float current){
   if (error <= -0.025 || error >= 0.025)
    d_error = error - prev_error;
    e_int = e_int + error;
-   new_current = Prop_gain*error;
+   new_current = Prop_gain*error;              //figure out prop gain
    prev_error = error;
+   voltage2 = new_current/1.85;               //1 for 20A Module, .66 for 30A Module
+   new_PWM = prev_PWM + voltage2*255;      
+   prev_PWM = new_PWM;
 }
     
 
@@ -119,8 +122,10 @@ void loop() {
     current = calculateCurrent(voltVal);
     //lcd.setCursor(7,0);
     //lcd.print(String("curr:") + String(current));
-    analogWrite(pwm, 10);
+    analogWrite(pwm, 0);
     rotateCW();
+    STOP();
+    rotateCCW();
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print(String("encoder:") + String(counter));  //encoder counts correctly until motor spins to fast. need limit?
