@@ -1,11 +1,11 @@
 #include <LiquidCrystal.h>
-#include <PID_v1.h>
+
 
 const int encoderPinA = 3;
 const int encoderPinB = 2;
 const int POT = A0;
-const int in2 = 9;
-const int in1 = 10;
+const int in2 = 10;
+const int in1 = 9;
 const int pwm = 11;
 int ADCval;
 int ADCval2;
@@ -42,22 +42,22 @@ int setValueOfK(int POT){                //setting up potientiometer for spring 
 }
 
 
-void rotateCW(){ 
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-  delay(1000);
+void rotateCCW(){ 
+  digitalWrite(in1, LOW);              
+  digitalWrite(in2, HIGH);           //in2 is low sinc stops
+  delay(2000);
 }
 
-void rotateCCW(){
+void rotateCW(){                    //For some reason stops
   digitalWrite(in1, HIGH);
-  digitalWrite(in2, LOW);
-  delay(1000);
+  digitalWrite(in2, LOW);            
+  delay(2000);
 }
 
-void STOP(){
+void STOP(){                         //For Some reason goes CCW
   digitalWrite(in1, HIGH);
-  digitalWrite(in2, HIGH);
-  delay(1000);
+  digitalWrite(in2, HIGH);      // in2 must be low
+  delay(2000);
 }
 
 void encoder(){
@@ -86,15 +86,16 @@ int calculateCurrent(int voltVal){
   ADCval2 = analogRead(currentPin);
   voltage = 5000*(ADCval2/1024.0);                      //gives mV, https://circuits4you.com/2016/05/13/arduino-asc712-current/
   current = (voltage-512)/(currentGain*0.015);          //2.5 ACSoffset, 512 same as 2.5V, 1.5 = currentGain * 0.015 (value of resistor)
-  //lcd.clear();
+  lcd.clear();
   //lcd.print(String("ADC:") + String(ADCval2));
   //lcd.setCursor(0,1);
   //lcd.print(String("voltage:"));
   //lcd.setCursor(9,1);
   //lcd.print(voltage);
   //lcd.setCursor(0,0);
-  //lcd.print("curr:");
-  //lcd.print(current);
+  lcd.print("curr:");
+  
+  lcd.print(current);
  
   return current;
 }
@@ -139,9 +140,8 @@ void setup() {
   lcd.begin(16,2);
   digitalWrite(in1, motorState);
   digitalWrite(in2, motorState);            //set initial motor state
-  //attachInterrupt(0, encoder, CHANGE);
   attachInterrupt(0, encoder, CHANGE);     //interrupt for encoder, 0 is for digital pin 2
-  //attachInterrupt(1, encoder2, CHANGE);     //1 is for digital pin 3
+  //attachInterrupt(1, encoder2, CHANGE);     //1 is for digital pin 3, if we want more resolution
 }
 
 void loop() {
@@ -151,11 +151,11 @@ void loop() {
     current = calculateCurrent(voltVal);
     //lcd.setCursor(7,0);
     //lcd.print(String("curr:") + String(current));
-    analogWrite(pwm,10);
-    //rotateCW();
-    //STOP();
+    analogWrite(pwm,0);
+    rotateCW(); 
+    STOP();
     rotateCCW();
     lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print(String("encoder:") + String(counter));  //encoder counts correctly until motor spins to fast. need limit?
+    //lcd.setCursor(0,0);
+    //lcd.print(String("encoder:") + String(counter));  //encoder counts correctly until motor spins to fast. need limit?
 }
