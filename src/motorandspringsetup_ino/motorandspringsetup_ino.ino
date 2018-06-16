@@ -12,24 +12,29 @@ int ADCval2;
 float current;
 float voltage;
 float error;
+float error1;
 float e_int = 0;
+float e_int1 = 0;
 float prev_error = 0;
 float new_current;
+float new_position;
 float motorVoltage;
 float d_error = 0;
 float voltage2;
 int new_PWM = 0;
 int prev_PWM = 0;
 int k;
-int TurnOffMotor = 0;
-volatile long counter = 0;
+//int TurnOffMotor = 0;
+volatile long encoderPos = 0;
 int angle = 0;
 int aPinState;
 int bPinState;
 int currentPin = A1; 
 int desiredCurrent;
+int desiredEncoderPos;
 float voltVal;
-int Prop_gain = 1;                      //Figure Out!!
+int Prop_gain = 1;
+int d_gain = 0.1;
 int currentGain = 100;                   //gain that affects range of current
 int motorState = HIGH;                   //current state of output pin;
 LiquidCrystal lcd(8,7,6,5,20,21);
@@ -37,98 +42,107 @@ LiquidCrystal lcd(8,7,6,5,20,21);
 
 int setValueOfK(int POT){                //setting up potientiometer for spring constant that will be increased for higher resistance
   ADCval = analogRead(POT);
-  k = map(ADCval, 0, 1023, 0, 100);
+  k = map(ADCval, 0, 1023, 0, 10);
   return k; 
 }
 
 
-void rotateCCW(){ 
+void rotateCW(){ 
   digitalWrite(in1, LOW);              
-  digitalWrite(in2, HIGH);           //in2 is low sinc stops
-  delay(2000);
+  digitalWrite(in2, HIGH);
+  //delay(100);  
 }
 
-void rotateCW(){                    //For some reason stops
+void rotateCCW(){                    
   digitalWrite(in1, HIGH);
-  digitalWrite(in2, LOW);            
-  delay(2000);
+  digitalWrite(in2, LOW); 
+  //delay(100); 
 }
 
-void STOP(){                         //For Some reason goes CCW
+void STOP(){                        
   digitalWrite(in1, HIGH);
-  digitalWrite(in2, HIGH);      // in2 must be low
-  delay(2000);
+  digitalWrite(in2, HIGH); 
+  delay(100);  
 }
 
 void encoder(){
   aPinState = digitalRead(encoderPinA);
   bPinState = digitalRead(encoderPinB);  
   if (bPinState != aPinState ) {         //rotating clockwise if diff        counter = -counter;
-        counter ++;
-    }
-    else {
-        counter --;                     //rotating counterclockwise
-    }
+    encoderPos ++;
+  }
+  else {
+    encoderPos --;                     //rotating counterclockwise
+  }
 }
 
-void encoder2(){
+void encoder2(){                        //not being used since two interrupts weren't working
   aPinState = digitalRead(encoderPinA);
   bPinState = digitalRead(encoderPinB);  
   if (bPinState != aPinState ) {         //rotating clockwise if diff        counter = -counter;
-        counter ++;
-    }
-    else {
-        counter --;                     //rotating counterclockwise
-    }
+    encoderPos ++;
+  }
+  else {
+    encoderPos --;                     //rotating counterclockwise
+  }
 }
 
 int calculateCurrent(int voltVal){
   ADCval2 = analogRead(currentPin);
   voltage = 5000*(ADCval2/1024.0);                      //gives mV, https://circuits4you.com/2016/05/13/arduino-asc712-current/
-  current = (voltage-512)/(currentGain*0.015);          //2.5 ACSoffset, 512 same as 2.5V, 1.5 = currentGain * 0.015 (value of resistor)
-  lcd.clear();
+  current = (voltage-512.0)/(currentGain*0.015);          //2.5 ACSoffset, 512 same as 2.5V, 1.5 = currentGain * 0.015 (value of resistor)
+  // lcd.clear();
   //lcd.print(String("ADC:") + String(ADCval2));
   //lcd.setCursor(0,1);
   //lcd.print(String("voltage:"));
   //lcd.setCursor(9,1);
   //lcd.print(voltage);
   //lcd.setCursor(0,0);
-  lcd.print("curr:");
-  
-  lcd.print(current);
- 
+  // lcd.print("curr:");
+
+  // lcd.print(current);
+
   return current;
 }
+
+void currentController(){
+  desiredEncoderPos = 0;  
+  error = desiredEncoderPos - encoderPos;                //trying to get wheel to spin back to 0, as user pushes on it
+  desiredCurrent = k*error; 
+  // lcd.setCursor(6,0);
+  // lcd.print("dC:");
+  // lcd.print(desiredCurrent);
+  error1 = desiredCurrent-current;
+  // lcd.setCursor(12,1);
+  // lcd.print(error);
+
+  //if (error1 <= -0.025 || error1 >= 0.025)
+  d_error = error - prev_error;
+  new_current = Prop_gain*error + d_gain*d_error;              //figure out prop gain
+  //prev_error = error;
+  //voltage2 = new_current/185.0;               //185 mV/A, 1 for 20A Module, .66 for 30A Module
+  new_PWM = new_current;//prev_PWM + voltage2*255.0;  
+  lcd.setCursor(0,1);
+  lcd.print(new_PWM);   
+  prev_PWM = new_PWM;
+
+  if (new_PWM > 255 ){
+    new_PWM = 255;
+  }
+  else if (new_PWM < -255){
+    new_PWM = -255;
+  }
   
-void currentController(float current){
-  desiredCurrent = k*current;
-  error = desiredCurrent-current;
-  
-  if (error <= -0.025 || error >= 0.025)
-   d_error = error - prev_error;
-   e_int = e_int + error;
-   new_current = Prop_gain*error;              //figure out prop gain
-   prev_error = error;
-   voltage2 = new_current/1.85;               //185 mV/A, 1 for 20A Module, .66 for 30A Module
-   new_PWM = prev_PWM + voltage2*255;      
-   prev_PWM = new_PWM;
-   
-     if (new_PWM > 255 ){
-       new_PWM = 255;
-       }
-     else if (new_PWM < -255){
-       new_PWM = -255;
-       }
-     if (new_PWM >= 0) {
-       rotateCW();
-       analogWrite(pwm, new_PWM);
-       }
-     else {
-       rotateCCW();
-       analogWrite(pwm, -new_PWM);
-    }
-  }  
-   
+  if (new_PWM >= 0) {
+    rotateCW();
+    analogWrite(pwm, new_PWM);
+  }
+  else {
+    rotateCCW();
+    analogWrite(pwm, -new_PWM);
+  }
+}  
+
 
 void setup() {
   Serial.begin(9600);
@@ -141,21 +155,25 @@ void setup() {
   digitalWrite(in1, motorState);
   digitalWrite(in2, motorState);            //set initial motor state
   attachInterrupt(0, encoder, CHANGE);     //interrupt for encoder, 0 is for digital pin 2
-  //attachInterrupt(1, encoder2, CHANGE);     //1 is for digital pin 3, if we want more resolution
+  //  attachInterrupt(1, encoder2, CHANGE);     //1 is for digital pin 3, if we want more resolution
 }
 
 void loop() {
-    k = setValueOfK(POT);                  //spring constant for spring equation
-    //lcd.setCursor(0,0);
-    //lcd.print(String("k:") + String(k));
-    current = calculateCurrent(voltVal);
-    //lcd.setCursor(7,0);
-    //lcd.print(String("curr:") + String(current));
-    analogWrite(pwm,0);
-    rotateCW(); 
-    STOP();
-    rotateCCW();
-    lcd.clear();
-    //lcd.setCursor(0,0);
-    //lcd.print(String("encoder:") + String(counter));  //encoder counts correctly until motor spins to fast. need limit?
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("encoder: ");
+  lcd.print(encoderPos);
+  k = setValueOfK(POT);                  //spring constant for spring equation
+  //lcd.setCursor(0,0);
+  //lcd.print(String("k:") + String(k));
+  current = calculateCurrent(voltVal);
+  //lcd.setCursor(0,1);
+  //lcd.print("curr:");
+  //lcd.print(current);
+  currentController();
+  //analogWrite(pwm,200);
+  //rotateCCW(); 
+  //STOP();
+  //rotateCW();
 }
+
