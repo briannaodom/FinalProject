@@ -86,22 +86,12 @@ For the sake of the desktop model, the third and fourth columns respectfully wil
 | 24"              | 18"               |                             |                            |
 
 ### Measurements for onShape Modeling
-For shaft
-1. Pulley radius of center hole is 1.0 in
-2. Set screw hub center hole diamaeter .50 in
-3. Pinwheel center hole diameter .50 in 
 
-For bolt
-1. pinwheel small holes .140000 in diameter (bolt head needs to be bigger, bolt shaft/helix height)
-2. center distance of small holes is .110 (bold shaft length)
-3. set screw hub hole is .275 long (helix of bolt)
+Sketch and extrude pictures of all the parts used to build the desktop version of the ab wheel can be found under [OnshapeDocs](https://github.com/briannaodom/FinalProject/tree/master/onShapeDocs)
 
-These measurements taken above are from the models created from [Servocity](https://www.servocity.com/) that can be found [here](https://github.com/briannaodom/FinalProject/tree/master/onShapeDocs).
+A future assembly through OnShape will be done showing the whole model put together. However, here is a picture of the current model of my build. The [hub](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/HubExtrude.png) is directly attached to the motor which sits on [slots](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/SlotBoxExtrude.png) allowing the motor to move back and forth, when it rotates. 
 
-An example of modeled [bolt](https://github.com/briannaodom/FinalProject/blob/master/images/bolt.png) created in onShape for this desktop model can be seen.
-
-More measurements of other parts including the motor will be added soon. 
-
+[![](https://github.com/briannaodom/FinalProject/blob/master/images/DesktopAbWheel.jpg)]()
 ### Future Goals
 
 The goal is to finish the onShape model of the desktop version of the abwheel and test the current sensing code, before the start of the summer quarter.
