@@ -117,6 +117,8 @@ which is basically the wheel trying to go back to 0. A little oscillation at the
 
 For now, a motor that can provide a higher torque needs to be bought for the desktop model.
 
+Lastly, two interrupts would have been nice to use for the encoder counts to have a better resolution. I tried using pins 2 and 3 on the arduino, but using two at a time caused an issue. Would have to do more research to figure out how to use both. 
+
 ### Future Goals
 
 Fine tune the PD gains better with matlab, as what I currently have is by eye. 
