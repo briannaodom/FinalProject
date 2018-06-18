@@ -45,6 +45,8 @@ The hbridge DRV3385 chip is currently wired to drive the DC motor in a forward d
 
 The datasheet to wire the hbridge can be found on the Pololu website [here](https://www.pololu.com/product/2135).
 
+Modifications: VCC wire has been disconnected and the 6V positive wire of the battery goes to VIN. So the hbridge is completely controlled by the the 6V battery and the rest of the circuit by the arduino.
+
 Useful for hbridge and button setup:
 
 1. Schematic of hbridge [link](https://github.com/briannaodom/FinalProject/blob/master/images/hbridge.png)
@@ -111,7 +113,7 @@ Next, a second error is calculated which is the error between the desired curren
 The current motor I am using could only go up to 11V, thus even at the highest voltage and with two bolts holding the motor down in the slots, the motor had a hard time being moved. Thus, it was hard to figure out the proper gains for the PID of the [currentcontroller](https://github.com/briannaodom/FinalProject/blob/master/src/motorandspringsetup_ino/motorandspringsetup_ino.ino).
 
 Therefore, for now, I provided a link to a video that shows the wheel moving in a CW rotation, 
-which is basically the wheel trying to go back to 0. A little oscillation at the end of the wheel rotating occurs, so a higher or better derivative gain needs to be found.   
+which is basically the wheel trying to go back to 0. A little oscillation at the end of the wheel rotating occurs, so a higher or better derivative gain needs to be found. [vimeo](https://tinyurl.com/AbWheelSpin)  
 
 For now, a motor that can provide a higher torque needs to be bought for the desktop model.
 
