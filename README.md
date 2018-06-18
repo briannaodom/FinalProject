@@ -85,17 +85,44 @@ For the sake of the desktop model, the third and fourth columns respectfully wil
 | 26"              | 20"               |                             |                            |
 | 24"              | 18"               |                             |                            |
 
+
+I ended up making the [arm one](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/Arm1ForAbWheel.png) and [arm two](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/Arm2.png) about 8" with a 6" distance between holes in OnShape. If I ever make a more complex model, I'd use the measurements above or at least a 2:1 or 3:1 ratio between arms and body for the desktop model.
+
 ### Measurements for onShape Modeling
 
 Sketch and extrude pictures of all the parts used to build the desktop version of the ab wheel can be found under [OnshapeDocs](https://github.com/briannaodom/FinalProject/tree/master/onShapeDocs)
 
-A future assembly through OnShape will be done showing the whole model put together. However, here is a picture of the current model of my build. The [hub](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/HubExtrude.png) is directly attached to the motor which sits on [slots](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/SlotBoxExtrude.png) allowing the motor to move back and forth, when it rotates. 
+A future assembly through OnShape will be done showing the whole model put together. However, here is a picture of the current model of my build. The [hub](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/HubExtrude.png) is directly attached to the motor and wheel which sits on [slots](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/SlotBoxExtrude.png) allowing the motor to move back and forth, when it rotates. 
+
+Due to an error in measurement of the height of the slot box, a second [track](https://github.com/briannaodom/FinalProject/blob/master/onShapeDocs/Track.png) was made with for the wheel to sit on so it is not hovering. I used two extra hubs glued between the tracks to help bridge the distance.
 
 [![](https://github.com/briannaodom/FinalProject/blob/master/images/DesktopAbWheel.jpg)]()
+
+### Current Control 
+
+My main code is [motorandspringsetup](https://github.com/briannaodom/FinalProject/blob/master/src/motorandspringsetup_ino/motorandspringsetup_ino.ino). 
+
+Basically, a potentiometer is hooked up to control k the spring constant. The higher k, the stronger or harder the spring, thus the higher the resistance of the motor. Under the currentController function, we are keeping track of the encoder moving away from 0, the point we want the wheel to be at. Thus our desired current is k times the error of the distance of the motor from its original starting position. 
+
+Next, a second error is calculated which is the error between the desired current and the actual current being measured from the motor with the current sensor. PD gains are given to get the motor to add resistance and keep the wheel in line in the CW direction of the rotation of the motor, which calculates a new pwm value that is sent to the motor. Anti-windup limits the new pwm values. 
+
+### Issues/Limitations
+
+The current motor I am using could only go up to 11V, thus even at the highest voltage and with two bolts holding the motor down in the slots, the motor had a hard time being moved. Thus, it was hard to figure out the proper gains for the PID of the [currentcontroller](https://github.com/briannaodom/FinalProject/blob/master/src/motorandspringsetup_ino/motorandspringsetup_ino.ino).
+
+Therefore, for now, I provided a link to a video that shows the wheel moving in a CW rotation, 
+which is basically the wheel trying to go back to 0. A little oscillation at the end of the wheel rotating occurs, so a higher or better derivative gain needs to be found.   
+
+For now, a motor that can provide a higher torque needs to be bought for the desktop model.
+
 ### Future Goals
 
-The goal is to finish the onShape model of the desktop version of the abwheel and test the current sensing code, before the start of the summer quarter.
+Fine tune the PD gains better with matlab, as what I currently have is by eye. 
 
-Next quarters goal is to continue the software to come to a comfortable/safe point that the code will prevent a user from getting hurt, before testing on a human size model of the abwheel. 
+Do measurements for a motor that would provide enough torque to handle a human body.
+
+Create a new circuit and design a pcb board that includes an on/off switch.
+
+Create a bigger model in onshape and buy the parts to put it all together.
 
 
