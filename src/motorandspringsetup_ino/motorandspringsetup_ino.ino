@@ -1,17 +1,17 @@
 #include <LiquidCrystal.h>
 
 
-const int encoderPinA = 3;
-const int encoderPinB = 2;
-const int POT = A0;
-const int in2 = 10;
-const int in1 = 9;
-const int pwm = 11;
-int ADCval;
-int ADCval2;
+const int encoderPinA = 3;              //encoder interrupt pin for encoder A
+const int encoderPinB = 2;              //encoder interrupt pin for encoder B
+const int POT = A0;                     //potientiometer for controlling spring constant
+const int in2 = 10;                     //not needed 
+const int in1 = 9;                      //input pin for motor direction
+const int pwm = 11;                     //pwm pin for motor
+int ADCval;                             //for pot
+int ADCval2;                            //for voltage
 float current;
-float voltage;
-float error;
+float voltage;    
+float error;                            //following few terms for PID
 float error1;
 float e_int = 0;
 float e_int1 = 0;
@@ -23,21 +23,21 @@ float d_error = 0;
 float voltage2;
 int new_PWM = 0;
 int prev_PWM = 0;
-int k;
+int k;                                   //spring constant
 //int TurnOffMotor = 0;
 volatile long encoderPos = 0;
 int angle = 0;
-int aPinState;
-int bPinState;
+int aPinState;                           //states of encoder pins A and B
+int bPinState;                              
 int currentPin = A1; 
 int desiredCurrent;
-int desiredEncoderPos;
+int desiredEncoderPos;                  
 float voltVal;
 int Prop_gain = 1;
 int d_gain = 0.1;
 int currentGain = 100;                   //gain that affects range of current
 int motorState = HIGH;                   //current state of output pin;
-LiquidCrystal lcd(8,7,6,5,20,21);
+LiquidCrystal lcd(8,7,6,5,20,21);        //lcd pin setup
 
 
 int setValueOfK(int POT){                //setting up potientiometer for spring constant that will be increased for higher resistance
@@ -47,7 +47,7 @@ int setValueOfK(int POT){                //setting up potientiometer for spring 
 }
 
 
-void rotateCW(){ 
+void rotateCW(){                             //following method of direction
   digitalWrite(in1, LOW);              
   digitalWrite(in2, HIGH);
   //delay(100);  
@@ -68,7 +68,7 @@ void STOP(){
 void encoder(){
   aPinState = digitalRead(encoderPinA);
   bPinState = digitalRead(encoderPinB);  
-  if (bPinState != aPinState ) {         //rotating clockwise if diff        counter = -counter;
+  if (bPinState != aPinState ) {        //rotating clockwise if diff        counter = -counter;
     encoderPos ++;
   }
   else {
@@ -87,7 +87,7 @@ void encoder2(){                        //not being used since two interrupts we
   }
 }
 
-int calculateCurrent(int voltVal){
+int calculateCurrent(int voltVal){                      //function for calculating current from voltage
   ADCval2 = analogRead(currentPin);
   voltage = 5000*(ADCval2/1024.0);                      //gives mV, https://circuits4you.com/2016/05/13/arduino-asc712-current/
   current = (voltage-512.0)/(currentGain*0.015);          //2.5 ACSoffset, 512 same as 2.5V, 1.5 = currentGain * 0.015 (value of resistor)
@@ -106,21 +106,21 @@ int calculateCurrent(int voltVal){
 }
 
 void currentController(){
-  desiredEncoderPos = 0;  
+  desiredEncoderPos = 0;                                 //desired position for motor to roll back to
   error = desiredEncoderPos - encoderPos;                //trying to get wheel to spin back to 0, as user pushes on it
   desiredCurrent = k*error; 
   // lcd.setCursor(6,0);
   // lcd.print("dC:");
   // lcd.print(desiredCurrent);
-  error1 = desiredCurrent-current;
-  // lcd.setCursor(12,1);
+  error1 = desiredCurrent-current;                       //PID controller
+  // lcd.setCursor(12,1);                        
   // lcd.print(error);
 
   //if (error1 <= -0.025 || error1 >= 0.025)
   d_error = error - prev_error;
-  new_current = Prop_gain*error + d_gain*d_error;              //figure out prop gain
+  new_current = Prop_gain*error + d_gain*d_error;          //figure out prop gain
   //prev_error = error;
-  //voltage2 = new_current/185.0;               //185 mV/A, 1 for 20A Module, .66 for 30A Module
+  //voltage2 = new_current/185.0;                         //185 mV/A, 1 for 20A Module, .66 for 30A Module
   new_PWM = new_current;//prev_PWM + voltage2*255.0;  
   lcd.setCursor(0,1);
   lcd.print(new_PWM);   
@@ -155,7 +155,7 @@ void setup() {
   digitalWrite(in1, motorState);
   digitalWrite(in2, motorState);            //set initial motor state
   attachInterrupt(0, encoder, CHANGE);     //interrupt for encoder, 0 is for digital pin 2
-  //  attachInterrupt(1, encoder2, CHANGE);     //1 is for digital pin 3, if we want more resolution
+  //attachInterrupt(1, encoder2, CHANGE);     //1 is for digital pin 3, if we want more resolution. having issues with 2 however
 }
 
 void loop() {
